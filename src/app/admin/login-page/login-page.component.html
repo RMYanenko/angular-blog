@@ -1,0 +1,52 @@
+<form class="card" [formGroup]="form" (ngSubmit)="submit()">
+  <h2>Log in dashboard.</h2>
+<!--  якщо є помилки додається контроллер-->
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
+  >
+    <label for="email"> Email:
+      <input type="email" id="email" placeholder="email" formControlName="email">
+    </label>
+    <!--  якщо email не вписано, або вписано некоректно то видаватиме звістку про помилку-->
+    <div
+      *ngIf="form.get('email').touched && form.get('email').invalid"
+      class="validation">
+      <small *ngIf="form.get('email').errors.required">
+        Enter email
+      </small>
+      <small *ngIf="form.get('email').errors.email">
+        Enter your email address correctly
+      </small>
+    </div>
+  </div>
+
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid}"
+  >
+    <label for="password"> Password:
+      <input type="password" id="password" placeholder="password" formControlName="password">
+    </label>
+    <!--  якщо password не вписано, або вписано некоректно то видаватиме звістку про помилку-->
+    <div
+      *ngIf="form.get('password').touched && form.get('password').invalid"
+      class="validation">
+      <small *ngIf="form.get('password').errors.required">Error. Enter you password</small>
+      <small *ngIf="form.get('password').errors.minlength">
+        Error. Enter correct password, now length
+        {{form.get('password').errors.minlength.actualLength}}
+        , min length
+        {{form.get('password').errors.minlength.requiredLength}}
+        characters
+      </small>
+    </div>
+  </div>
+
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="form.invalid"
+  >Log in</button>
+  <!--  [disabled]="form.invalid"     якщо форма не валідна блокується кнопка (баендінг)-->
+</form>
