@@ -1,5 +1,10 @@
 <form class="card" [formGroup]="form" (ngSubmit)="submit()">
   <h2>Log in dashboard.</h2>
+
+  <div class="alert alert-danger" *ngIf="auth.error$ | async as error">
+    {{error}}
+  </div>
+
 <!--  якщо є помилки додається контроллер-->
   <div
     class="form-control"
@@ -46,7 +51,7 @@
   <button
     class="btn btn-primary"
     type="submit"
-    [disabled]="form.invalid"
+    [disabled]="form.invalid || submitted"
   >Log in</button>
   <!--  [disabled]="form.invalid"     якщо форма не валідна блокується кнопка (баендінг)-->
 </form>
