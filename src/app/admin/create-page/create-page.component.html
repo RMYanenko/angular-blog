@@ -1,3 +1,48 @@
-<form>
+<form  class="card" [formGroup]="form" (ngSubmit)="submit()">
   <h1>Create new post!</h1>
+
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}"
+  >
+    <label for="title"> Title:
+      <input type="text" id="title" placeholder="title" formControlName="title">
+    </label>
+    <!--  якщо Title не вписано, або вписано некоректно то видаватиме звістку про помилку-->
+    <div
+      *ngIf="form.get('title').touched && form.get('title').invalid"
+      class="validation">
+      <small *ngIf="form.get('title').errors.required">
+        Enter post title
+      </small>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label>Content post:</label>
+    <quill-editor formControlName="text"></quill-editor>
+  </div>
+
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.get('author').touched && form.get('author').invalid}"
+  >
+    <label for="title"> Author:
+      <input type="text" id="author" placeholder="author" formControlName="author">
+    </label>
+    <div
+      *ngIf="form.get('author').touched && form.get('author').invalid"
+      class="validation">
+      <small *ngIf="form.get('author').errors.required">
+        Enter post author
+      </small>
+    </div>
+  </div>
+  <button
+    class="btn btn-block btn-dark"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Create post
+  </button>
 </form>
